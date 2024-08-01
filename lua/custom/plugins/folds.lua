@@ -2,5 +2,5 @@
 vim.o.foldcolumn = '2'
 
 -- Enable highlited folds
-vim.wo.foldtext = 'v:lua.vim.treesitter.foldtext()'
+-- vim.wo.foldtext = 'v:lua.vim.treesitter.foldtext()'
 return {}

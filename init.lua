@@ -102,10 +102,10 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.opt.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -165,7 +165,16 @@ vim.opt.scrolloff = 10
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open buffer diagnostic [q]uickfix list' })
+vim.keymap.set('n', '<leader>Q', '<cmd>lclose<CR>', { desc = 'Close diagnostic [Q]uickfix list' })
+
+-- Navigate between location list items
+vim.keymap.set('n', '<leader>j', '<cmd>lnext<CR>', { desc = 'Forward qfixlist' })
+vim.keymap.set('n', '<leader>k', '<cmd>lprev<CR>', { desc = 'Backward qfixlist' })
+
+-- Navigate between quickfix list items
+vim.keymap.set('n', '<leader>h', '<cmd>cnext<CR>', { desc = 'Forward qfixlist' })
+vim.keymap.set('n', '<leader>;', '<cmd>cprev<CR>', { desc = 'Backward qfixlist' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -285,7 +294,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>u', group = 'Git H[u]nk', mode = { 'n', 'v' } },
       }
     end,
   },
@@ -569,7 +578,8 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
+        tsserver = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
